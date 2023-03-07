@@ -14,10 +14,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="">
-        <div className="">
-          <h1 className="text-bold text-xl">Anvuil ui</h1>
-
+      <main>
+        <div>
           <button onClick={mine}>Mine block</button>
         </div>
       </main>
