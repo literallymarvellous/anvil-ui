@@ -1,14 +1,40 @@
-import { getNodeInfo } from "@/utils/testClient";
+import { NodeInfo } from "@/utils/clients";
+import { getNodeInfo } from "@/utils/ethMethods";
 import { useQuery } from "@tanstack/react-query";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
+import { fromHex } from "viem";
 
 const AnvilInfo = () => {
   const { data: nodeInfo } = useQuery({
     queryKey: ["nodeInfo"],
     queryFn: getNodeInfo,
+    select: useCallback(
+      (data: NodeInfo) => ({
+        ...data,
+        currentBlockNumber: fromHex(
+          data.currentBlockNumber as `0x${string}`,
+          "number"
+        ),
+        currentBlockHash: fromHex(
+          data.currentBlockHash as `0x${string}`,
+          "number"
+        ),
+        environment: {
+          baseFee: fromHex(data.environment.baseFee as `0x${string}`, "number"),
+          chainId: fromHex(data.environment.chainId as `0x${string}`, "number"),
+          gasLimit: fromHex(
+            data.environment.gasLimit as `0x${string}`,
+            "number"
+          ),
+          gasPrice: fromHex(
+            data.environment.gasPrice as `0x${string}`,
+            "number"
+          ),
+        },
+      }),
+      []
+    ),
   });
-
-  console.log(nodeInfo);
 
   return (
     <div className="py-4">
@@ -26,13 +52,13 @@ const AnvilInfo = () => {
         <div className="flex flex-col">
           <div>Gas Price</div>
           <div className="text-yellow-600">
-            {nodeInfo?.environment.gasPrice}
+            {nodeInfo?.environment.gasPrice.toLocaleString("en-US")} wei
           </div>
         </div>
         <div className="flex flex-col">
-          <div>Gas Limit</div>
+          <div>Block Gas Limit</div>
           <div className="text-yellow-600">
-            {nodeInfo?.environment.gasLimit}
+            {nodeInfo?.environment.gasLimit.toLocaleString("en-US")} uints
           </div>
         </div>
         <div className="flex flex-col">

@@ -1,6 +1,6 @@
-import { getAccounts } from "@/utils/testClient";
 import { useQuery } from "@tanstack/react-query";
 import AccountItem from "./AccountItem";
+import { getAccounts } from "@/utils/ethMethods";
 
 const AccountsList = () => {
   const { data: accounts } = useQuery({

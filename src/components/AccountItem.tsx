@@ -1,14 +1,10 @@
-import {
-  getBalance,
-  getTxCount,
-  setBalance,
-  setNonce,
-} from "@/utils/testClient";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as Dialog from "@radix-ui/react-dialog";
 import { XSquare } from "lucide-react";
 import { useState } from "react";
 import { parseEther } from "viem";
+import { setBalance, setNonce } from "@/utils/anvilMethods";
+import { getBalance, getTxCount } from "@/utils/ethMethods";
 
 const setInfo = async ({
   address,
